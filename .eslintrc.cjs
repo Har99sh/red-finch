@@ -4,7 +4,9 @@ require("@rushstack/eslint-patch/modern-module-resolution");
 module.exports = {
   "root": true,
   "rules": {
-    "vue/multi-word-component-names": 0
+    "vue/multi-word-component-names": [ "error", {
+      "ignores": [ "index", "[id]" ]
+    } ]
   },
   "extends": [
     "plugin:vue/vue3-essential",
