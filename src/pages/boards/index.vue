@@ -26,16 +26,14 @@ const boards = ref<Partial<Board>[]>([
   },
 ]);
 
-function createBoard() {
-  console.log("board created");
-}
+// function createBoard() {}
 </script>
 
 <template>
   <h1 class="text-3xl mb-5">Boards</h1>
   <div class="flex">
     <BoardCard v-for="board in boards" :key="board.id" :board="board" />
-    <button class="text-gray-500" @click="createBoard()">
+    <button class="text-gray-500">
       <span>New Board +</span>
     </button>
   </div>
