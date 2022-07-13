@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { Drawer, DrawerContent } from "@progress/kendo-vue-layout";
 import { useLocalStorage } from "@vueuse/core";
-import { useRouter } from "vue-router";
-import { computed, ref } from "vue";
-// const router = useRouter();
-const selectedId = ref(0);
+import { computed } from "vue";
 const expanded = useLocalStorage("vue-forge-drawer-expanded", true);
 const expandedIcon = computed(() =>
   expanded.value ? "k-i-arrow-chevron-left" : "k-i-arrow-chevron-right"
@@ -42,7 +39,6 @@ const items = computed(() => [
 ]);
 function onSelect({ itemIndex }: { itemIndex: number }) {
   const item = items.value[itemIndex];
-  if (item.data.path) router.push(item.data.path);
   if (typeof item.data.action === "function") item.data.action();
 }
 </script>
