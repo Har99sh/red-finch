@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useBase64, useDropZone } from "@vueuse/core";
 import { ref } from "vue";
+
 const dropzoneEl = ref<HTMLElement | null>(null);
 const file = ref();
 const { base64: url } = useBase64(file);
@@ -9,10 +10,12 @@ const { isOverDropZone } = useDropZone(dropzoneEl, (files) => {
   file.value = files[0];
   console.log(file.value);
 });
+
 function onFileChange(e: any) {
   file.value = e.target.files[0];
   console.log(file.value);
 }
+
 function reset() {
   file.value = null;
 }
