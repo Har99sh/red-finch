@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { useAlerts } from "@/stores/alerts";
-import type { Board } from "@/types";
-import { ref } from "vue";
 import boardsQuery from "@/graphql/queries/boards.query.gql";
 import createBoardMutation from "@/graphql/mutations/createBoard.mutation.gql";
 import { useMutation, useQuery } from "@vue/apollo-composable";
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 
 const { result, loading, onError } = useQuery(boardsQuery);
 const boards = computed(() => result.value?.boardsList?.items || []);
@@ -24,17 +22,13 @@ const { mutate: createBoard } = useMutation(createBoardMutation, () => ({
   },
 }));
 
-// function createBoard() {
-//   alerts.success("Board created!");
-// }
-
 const newBoardPayload = {
   data: {
     title: "Test board 2",
   },
 };
 
-const getCoolGradient = (index) => {
+const getCoolGradient = (index: number) => {
   let finalGradientString = "";
   switch (index) {
     case 1:

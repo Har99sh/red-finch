@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
-// import AppPageHeading from "../../components/AppPageHeading.vue";
+import AppPageHeading from "../../components/AppPageHeading.vue";
 import BoardDragAndDrop from "../../components/BoardDragAndDrop.vue";
-// import { useAlerts } from "@/stores/Alerts";
-// const alerts = useAlerts();
 import type { Task } from "@/types";
 import { v4 as uuidv4 } from "uuid";
 
@@ -39,11 +37,11 @@ async function addTask(task: Task) {
 
 const updateBoard = (b) => {
   board.value = b;
-  // alerts.success("Board updated!");
 };
 
 const deleteBoardIfConfirmed = () => {
-  console.log("delete board");
+   // @todo Delete board logic goes here
+	  console.log("delete board");
 };
 </script>
 
