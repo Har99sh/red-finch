@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { toRefs } from "vue";
+import { computed, toRefs } from "vue";
 import AppPageHeading from "../../components/AppPageHeading.vue";
 import BoardDragAndDrop from "../../components/BoardDragAndDrop.vue";
 import type { Task } from "@/types";
 import { v4 as uuidv4 } from "uuid";
 import { useQuery } from '@vue/apollo-composable';
 import boardQuery from '@/graphql/queries/board.query.gql';
-import { computed } from '@vue/reactivity';
 
 const props = defineProps({
   id: String,
