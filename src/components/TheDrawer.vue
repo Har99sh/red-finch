@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { Drawer, DrawerContent } from "@progress/kendo-vue-layout";
 import { useLocalStorage } from "@vueuse/core";
-import { computed } from "vue";
+import { computed, ref } from "vue";
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+const router = useRouter();
 
 const expanded = useLocalStorage("vue-forge-drawer-expanded", true);
 const expandedIcon = computed(() =>
@@ -13,7 +17,7 @@ const items = computed(() => [
     icon: "k-i-set-column-position",
     selected: true,
     data: {
-      path: "/",
+      path: "/boards",
     },
   },
   {
@@ -41,6 +45,11 @@ const items = computed(() => [
 
 function onSelect({ itemIndex }: { itemIndex: number }) {
   const item = items.value[itemIndex];
+
+  if (item.data.path) {
+    router.push(item.data.path);
+  }
+
   if (typeof item.data.action === "function") item.data.action();
 }
 </script>
@@ -52,7 +61,10 @@ function onSelect({ itemIndex }: { itemIndex: number }) {
     position="start"
     mode="push"
     :mini="true"
-    :items="items"
+    :items="items.map((items, index) => ({
+      ...items,
+      selected: route.path === items.data.path,
+    }))"
     @select="onSelect"
   >
     <DrawerContent>
