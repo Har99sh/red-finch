@@ -22,7 +22,9 @@ const emit = defineEmits<{
 // local data
 const tasks = reactive(cloneDeep(props.tasks));
 const board = reactive(cloneDeep(props.board));
-const columns = reactive<Column[]>(JSON.parse(board.order as string));
+const columns = reactive<Column[]>(
+  typeof board.order === "string" ? JSON.parse(board.order as string) : board.order
+);
 
 // methods
 function addColumn() {
