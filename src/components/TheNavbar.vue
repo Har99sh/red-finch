@@ -1,17 +1,12 @@
 <script setup lang="ts">
-
-import { Button as KButton } from '@progress/kendo-vue-buttons';
-import { Popup as KPopup } from '@progress/kendo-vue-popup';
-
-import { ref } from 'vue';
-
+import { Button as KButton } from "@progress/kendo-vue-buttons";
+import { Popup as KPopup } from "@progress/kendo-vue-popup";
+import { ref } from "vue";
 const showTeams = ref(false);
-
 </script>
 
 <template>
-
-<div
+  <div
     class="p-4 border-bottom border-2 flex justify-between"
     style="margin: -1px"
   >
@@ -38,8 +33,14 @@ const showTeams = ref(false);
         </ul>
       </KPopup>
 
-      <KButton :rounded = "'full'" :shape = "'rectangle'" :icon = "'logout'" :theme-color="'warning'">Logout</KButton>
+      <KButton
+        :rounded="'full'"
+        :shape="'rectangle'"
+        :icon="'logout'"
+        :theme-color="'warning'"
+      >
+        Logout
+      </KButton>
     </div>
   </div>
-
 </template>
