@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref, toRefs } from "vue";
+import { computed, toRefs } from "vue";
 import AppPageHeading from "../../components/AppPageHeading.vue";
 import BoardDragAndDrop from "../../components/BoardDragAndDrop.vue";
 import type { Task } from "@/types";
 import { v4 as uuidv4 } from "uuid";
+import { useQuery } from '@vue/apollo-composable';
+import boardQuery from '@/graphql/queries/board.query.gql';
 
 const props = defineProps({
   id: String,
@@ -11,18 +13,14 @@ const props = defineProps({
 
 const { id: boardId } = toRefs(props);
 
-const board = ref({
-  id: boardId?.value || "1",
-  title: "Test Board 🍍",
-  order: JSON.stringify([
-    { id: "1", title: "backlog 🌴", taskIds: ["1", "2"] },
-  ]),
-});
+const { result: boardData } = useQuery(
+  boardQuery,
+  { id: boardId?.value },
+  { fetchPolicy: 'cache-and-network' }
+);
 
-const tasks = ref<Partial<Task>[]>([
-  { id: "1", title: "Code like mad people!" },
-  { id: "2", title: "Push clean code" },
-]);
+const board = computed(() => boardData.value?.board || null);
+const tasks = computed(() => board.value?.tasks?.items || null);
 
 async function addTask(task: Task) {
   return new Promise((resolve, reject) => {
@@ -35,8 +33,8 @@ async function addTask(task: Task) {
   });
 }
 
-const updateBoard = (b) => {
-  board.value = b;
+const updateBoard = () => {
+  // TODO: Add Update board logic
 };
 
 const deleteBoardIfConfirmed = () => {
@@ -46,7 +44,7 @@ const deleteBoardIfConfirmed = () => {
 </script>
 
 <template>
-  <div>
+  <div v-if="board">
     <AppPageHeading>
       {{ board.title }}
     </AppPageHeading>
